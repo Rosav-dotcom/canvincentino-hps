@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy import Column, Integer, ForeignKey, String
 from sqlalchemy.orm import relationship
 from app.database.connection import Base
 
@@ -12,4 +12,3 @@ class Corredor(Base):
     # Relaciones
     persona = relationship("Persona", backref="corredor")
     distancia = relationship("Distancia", backref="corredores")
-    
