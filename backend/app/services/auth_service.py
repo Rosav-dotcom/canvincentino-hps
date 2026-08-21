@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 from app.models.administrador import Administrador
+from app.core.security import verificar_password
 
 class AuthService:
     """Servicio para autenticación de administradores"""
@@ -8,8 +9,7 @@ class AuthService:
     @staticmethod
     def autenticar_administrador(db: Session, usuario: str, password: str):
         """
-        Autenticar un administrador.
-        NOTA: En producción, usar hash de contraseñas con bcrypt
+        Autenticar un administrador con hash de contraseña
         """
         administrador = db.query(Administrador).filter(
             Administrador.usuario == usuario
@@ -21,8 +21,7 @@ class AuthService:
                 detail="Usuario o contraseña incorrectos"
             )
         
-        # TODO: Implementar verificación de hash con bcrypt
-        if administrador.password_hash != password:
+        if not verificar_password(password, administrador.password_hash):
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Usuario o contraseña incorrectos"

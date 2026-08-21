@@ -2,8 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database.connection import engine, Base
 from app.models import Persona, Distancia, Corredor, Administrador
+from app.routers import corredores, distancias, auth
 
-# Crear tablas (aunque ya existen, esto verifica la estructura)
+# Crear tablas
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -20,6 +21,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Incluir routers
+app.include_router(corredores.router)
+app.include_router(distancias.router)
+app.include_router(auth.router)
 
 @app.get("/")
 def read_root():
