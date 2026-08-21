@@ -4,8 +4,8 @@ from app.schemas.persona import PersonaResponse
 from app.schemas.distancia import DistanciaResponse
 
 class CorredorBase(BaseModel):
-    numero_corredor: int = Field(..., gt=0, description="Número único del corredor")
-    distancias_id_dista: int = Field(..., description="ID de la distancia")
+    numero_corredor: int = Field(..., gt=0)
+    distancias_id_dista: int = Field(...)
 
 class CorredorCreate(CorredorBase):
     pass

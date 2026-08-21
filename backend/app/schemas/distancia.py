@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 
 class DistanciaBase(BaseModel):
-    distancia: str = Field(..., min_length=2, max_length=50, description="Distancia de la carrera")
+    distancia: str = Field(..., min_length=2, max_length=50)
 
 class DistanciaCreate(DistanciaBase):
     pass
@@ -11,4 +11,3 @@ class DistanciaResponse(DistanciaBase):
 
     class Config:
         from_attributes = True
-        
