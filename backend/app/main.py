@@ -8,16 +8,16 @@ from app.routers import corredores, distancias, auth
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title="Canvincentino HPS API",
-    description="API para el sistema de gestión de la Fundación Canvincentino",
+    title="Centro de Atención a la Mujer API",
+    description="API para el sistema de gestión de carreras",
     version="1.0.0"
 )
 
-# Configurar CORS
+# Configurar CORS - PERMITIR TODOS LOS ORÍGENES EN DESARROLLO
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],
-    allow_credentials=True,
+    allow_origins=["*"],  # Permitir todo en desarrollo
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -30,7 +30,7 @@ app.include_router(auth.router)
 @app.get("/")
 def read_root():
     return {
-        "message": "Bienvenido a la API de Canvincentino HPS",
+        "message": "Bienvenido a la API del Centro de Atención a la Mujer",
         "version": "1.0.0",
         "status": "running"
     }
